@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinGame : MonoBehaviour
+public class LoadLevel : MonoBehaviour
 {
-    //public string sceneToLoad = "Level1";
+    public string sceneToLoad = "Level1";
 
     private void OnTriggerEnter2D(Collider2D Collision)
     {
         if (Collision.tag == "Player")
         {
-            SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene(sceneToLoad);
         }
     }
 }
