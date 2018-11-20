@@ -7,6 +7,8 @@ public class EnemyHorizontalMovement : MonoBehaviour
     public float speed = 2f;
     public bool left = true;
 
+    public GroundCheckHitbox check;
+
     private Rigidbody2D rbody;
 
     void Start()
@@ -14,24 +16,27 @@ public class EnemyHorizontalMovement : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        left = !left;
+    }
+
+    private void FixedUpdate()
     {
         if (left == true)
         {
             rbody.MovePosition(rbody.position + (-(Vector2)transform.right * Time.deltaTime));
-            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            transform.localScale = new Vector3(1f, 1f, 1f);
         }
         else
         {
             rbody.MovePosition(rbody.position + ((Vector2)transform.right * Time.deltaTime));
-            transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        left = !left;
+        if (check.isGrounded == false)
+        {
+            left = !left;
+        }
     }
 }
